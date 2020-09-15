@@ -20,7 +20,7 @@ class Contact extends Component {
         return (
             <ScrollView>
                 <Card title="Contact Information" wrapperStyle={{margin: 20}}>
-                <Text>1 NuCamp Way</Text>
+                    <Text>1 NuCamp Way</Text>
                     <Text>Seatle, WA. 98001</Text>
                     <Text>USA</Text>
                     <Text style={{marginTop: 10}}>Phone: 1-206-555-1234</Text>
