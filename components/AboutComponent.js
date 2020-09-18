@@ -4,6 +4,8 @@ import { FlatList } from 'react-native';
 import { ListItem, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import Loading from './LoadingComponent';
+
 
 const mapStateToProps = state => {
     return {
@@ -38,24 +40,35 @@ class About extends Component {
                 <ListItem
                     title={item.name}
                     subtitle={item.description}
-                    leftAvatar={{ source: {uri: baseUrl + item.image}}}
-                /> 
+                    leftAvatar={{source: {uri: baseUrl + item.image}}}
+                />
             );
-        };    
-            
-            return ( 
+        };
+
+        if (this.props.partners.isLoading) {
+            return (
                 <ScrollView>
-                    <Card title="Our Mission">
-                        <Mission />
+                    <Mission />
+                    <Card
+                        title='Community Partners'>
+                        <Loading />
                     </Card>
-                    <Card title="Community Partners">
-                        <FlatList
-                            data={this.props.partners.partners}
-                            renderItem={renderPartner}
-                            keyExtractor={item => item.id.toString()}
-                        />
+                </ScrollView>
+            );
+        }
+        if (this.props.partners.errMess) {
+            return (
+                <ScrollView>
+                    <Mission />
+                    <Card
+                        title='Community Partners'>
+                        <Text>{this.props.partners.errMess}</Text>
                     </Card>
-                </ScrollView> 
+                </ScrollView>
+            );
+        }
+        return (
+            <ScrollView /> 
             );
         }
     }     
